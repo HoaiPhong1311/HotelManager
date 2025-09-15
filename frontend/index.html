@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Manager - Luxury Hotel Experience</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-hotel me-2"></i>Hotel Manager
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user/rooms.html">Rooms</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav" id="authNavItems">
+                    <li class="nav-item">
+                        <a class="nav-link" href="auth/login.html">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auth/register.html">
+                            <i class="fas fa-user-plus me-1"></i>Register
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-white d-flex align-items-center" style="min-height: 100vh; padding-top: 80px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4 fade-in">
+                        Welcome to Hotel Manager
+                    </h1>
+                    <p class="lead mb-4 fade-in">
+                        Experience luxury and comfort at its finest. Book your perfect stay with us and create unforgettable memories.
+                    </p>
+                    <div class="d-flex gap-3 fade-in">
+                        <a href="user/rooms.html" class="btn btn-light btn-lg btn-custom">
+                            <i class="fas fa-bed me-2"></i>Browse Rooms
+                        </a>
+                        <a href="#featured-rooms" class="btn btn-outline-light btn-lg btn-custom">
+                            <i class="fas fa-arrow-down me-2"></i>Explore
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Search Form -->
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="card card-custom shadow-lg">
+                        <div class="card-body p-4">
+                            <h4 class="card-title text-dark mb-4">
+                                <i class="fas fa-search me-2 text-primary"></i>Find Your Perfect Room
+                            </h4>
+                            <form id="roomSearchForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="checkInDate" class="form-label text-dark">Check In</label>
+                                        <input type="date" class="form-control form-control-custom" id="checkInDate" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="checkOutDate" class="form-label text-dark">Check Out</label>
+                                        <input type="date" class="form-control form-control-custom" id="checkOutDate" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="roomType" class="form-label text-dark">Room Type</label>
+                                        <select class="form-select form-control-custom" id="roomType">
+                                            <option value="">Loading room types...</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-custom w-100">
+                                            <i class="fas fa-search me-2"></i>Search Available Rooms
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Featured Rooms Section -->
+    <section id="featured-rooms" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-gradient">Featured Rooms</h2>
+                <p class="lead text-muted">Discover our most popular accommodations</p>
+            </div>
+            
+            <!-- Loading State -->
+            <div id="roomsLoading" class="text-center py-5">
+                <div class="spinner-custom mx-auto mb-3"></div>
+                <p class="text-muted">Loading amazing rooms...</p>
+            </div>
+            
+            <!-- Rooms Grid -->
+            <div id="roomsGrid" class="row g-4" style="display: none;">
+                <!-- Rooms will be populated here -->
+            </div>
+            
+            <!-- No Rooms Message -->
+            <div id="noRoomsMessage" class="text-center py-5" style="display: none;">
+                <i class="fas fa-bed fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">No rooms available</h4>
+                <p class="text-muted">Please check back later or contact us directly.</p>
+            </div>
+            
+            <!-- View All Rooms Button -->
+            <div class="text-center mt-5">
+                <a href="user/rooms.html" class="btn btn-primary btn-lg btn-custom">
+                    <i class="fas fa-eye me-2"></i>View All Rooms
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-6 fw-bold mb-4">About Hotel Manager</h2>
+                    <p class="lead mb-4">
+                        Experience unparalleled luxury and hospitality at Hotel Manager. Our commitment to excellence 
+                        ensures every guest enjoys a memorable stay with world-class amenities and personalized service.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-wifi text-primary me-3 fa-2x"></i>
+                                <div>
+                                    <h6 class="mb-1">Free WiFi</h6>
+                                    <small class="text-muted">High-speed internet</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-swimming-pool text-primary me-3 fa-2x"></i>
+                                <div>
+                                    <h6 class="mb-1">Swimming Pool</h6>
+                                    <small class="text-muted">Outdoor pool & spa</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-utensils text-primary me-3 fa-2x"></i>
+                                <div>
+                                    <h6 class="mb-1">Restaurant</h6>
+                                    <small class="text-muted">Fine dining experience</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-concierge-bell text-primary me-3 fa-2x"></i>
+                                <div>
+                                    <h6 class="mb-1">24/7 Service</h6>
+                                    <small class="text-muted">Round-the-clock support</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="text-center">
+                        <i class="fas fa-hotel fa-10x text-primary opacity-75"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h3 class="fw-bold mb-2">Ready to Book Your Stay?</h3>
+                    <p class="mb-0 opacity-75">Join thousands of satisfied guests who have experienced our exceptional hospitality.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <a href="user/rooms.html" class="btn btn-light btn-lg btn-custom">
+                        <i class="fas fa-calendar-check me-2"></i>Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5><i class="fas fa-hotel me-2"></i>Hotel Manager</h5>
+                    <p class="text-muted mb-3">Your premier destination for luxury accommodation and exceptional service.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-muted hover-primary">
+                            <i class="fab fa-facebook fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-muted hover-primary">
+                            <i class="fab fa-twitter fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-muted hover-primary">
+                            <i class="fab fa-instagram fa-lg"></i>
+                        </a>
+                        <a href="#" class="text-muted hover-primary">
+                            <i class="fab fa-linkedin fa-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-muted text-decoration-none hover-primary">Home</a></li>
+                        <li><a href="user/rooms.html" class="text-muted text-decoration-none hover-primary">Rooms</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none hover-primary">About</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none hover-primary">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted text-decoration-none hover-primary">Room Service</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none hover-primary">Spa & Wellness</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none hover-primary">Restaurant</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none hover-primary">Events</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3">Contact Info</h6>
+                    <ul class="list-unstyled text-muted">
+                        <li><i class="fas fa-map-marker-alt me-2"></i>123 Hotel Street, City</li>
+                        <li><i class="fas fa-phone me-2"></i>+1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope me-2"></i>info@hotelmanager.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">&copy; 2024 Hotel Manager. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="text-muted">Built with Bootstrap & Real API Integration</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Axios for API calls -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/homepage.js"></script>
+</body>
+</html>

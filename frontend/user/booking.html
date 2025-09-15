@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay - Hotel Manager</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="../index.html">
+                <i class="fas fa-hotel me-2"></i>Hotel Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rooms.html">
+                            <i class="fas fa-bed me-1"></i>Rooms
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" id="authNavItems">
+                    <!-- Dynamic content will be loaded here -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="bg-light py-3" style="margin-top: 76px;">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="../index.html" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="rooms.html" class="text-decoration-none">Rooms</a></li>
+                    <li class="breadcrumb-item"><a href="#" id="roomBreadcrumb" class="text-decoration-none">Room Details</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Book Now</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="text-center py-5">
+        <div class="container">
+            <div class="spinner-custom mx-auto mb-3"></div>
+            <p class="text-muted">Loading booking information...</p>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="text-center py-5" style="display: none;">
+        <div class="container">
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                <h4>Booking Error</h4>
+                <p id="errorMessage">Something went wrong. Please try again.</p>
+                <a href="rooms.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Rooms
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent" style="display: none;">
+        <!-- Page Header -->
+        <section class="py-4 bg-light">
+            <div class="container">
+                <div class="text-center">
+                    <h1 class="display-6 fw-bold mb-2">Complete Your Booking</h1>
+                    <p class="lead text-muted">You're just one step away from your perfect stay</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Content -->
+        <section class="py-4">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Booking Form -->
+                    <div class="col-lg-8">
+                        <form id="bookingForm" class="needs-validation" novalidate>
+                            <!-- Guest Information -->
+                            <div class="card card-custom mb-4">
+                                <div class="card-header bg-primary text-white">
+                                    <h4 class="mb-0">
+                                        <i class="fas fa-user me-2"></i>Guest Information
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label for="guestName" class="form-label fw-semibold">
+                                                Full Name <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control form-control-custom" id="guestName" required>
+                                            <div class="invalid-feedback">
+                                                Please provide your full name.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="guestEmail" class="form-label fw-semibold">
+                                                Email Address <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="email" class="form-control form-control-custom" id="guestEmail" required>
+                                            <div class="invalid-feedback">
+                                                Please provide a valid email address.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="guestPhone" class="form-label fw-semibold">
+                                                Phone Number <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="tel" class="form-control form-control-custom" id="guestPhone" required>
+                                            <div class="invalid-feedback">
+                                                Please provide your phone number.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="guestCountry" class="form-label fw-semibold">
+                                                Country/Region
+                                            </label>
+                                            <select class="form-select form-control-custom" id="guestCountry">
+                                                <option value="">Select Country</option>
+                                                <option value="VN" selected>Vietnam</option>
+                                                <option value="US">United States</option>
+                                                <option value="GB">United Kingdom</option>
+                                                <option value="JP">Japan</option>
+                                                <option value="KR">South Korea</option>
+                                                <option value="CN">China</option>
+                                                <option value="TH">Thailand</option>
+                                                <option value="SG">Singapore</option>
+                                                <option value="MY">Malaysia</option>
+                                                <option value="OTHER">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="specialRequests" class="form-label fw-semibold">
+                                                Special Requests
+                                            </label>
+                                            <textarea class="form-control form-control-custom" id="specialRequests" rows="3" 
+                                                placeholder="Any special requests or requirements for your stay..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Terms and Conditions -->
+                            <div class="card card-custom mb-4">
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                        <label class="form-check-label" for="agreeTerms">
+                                            I agree to the <a href="#" class="text-decoration-none">Terms and Conditions</a> 
+                                            and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            You must agree to the terms and conditions.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg btn-custom" id="submitBookingBtn">
+                                    <i class="fas fa-calendar-check me-2"></i>Complete Booking
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Booking Summary -->
+                    <div class="col-lg-4">
+                        <div class="card card-custom shadow-lg sticky-top" style="top: 100px;">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-receipt me-2"></i>Booking Summary
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Room Details -->
+                                <div class="d-flex mb-3">
+                                    <img id="summaryRoomImage" src="" alt="Room" class="rounded me-3" style="width: 80px; height: 60px; object-fit: cover;">
+                                    <div>
+                                        <h6 class="mb-1" id="summaryRoomTitle">Loading...</h6>
+                                        <small class="text-muted" id="summaryRoomType">Room Type</small>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <!-- Booking Details -->
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <small class="text-muted">Check-in</small>
+                                        <div class="fw-semibold" id="summaryCheckIn">-</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Check-out</small>
+                                        <div class="fw-semibold" id="summaryCheckOut">-</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Adults</small>
+                                        <div class="fw-semibold" id="summaryAdults">-</div>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">Children</small>
+                                        <div class="fw-semibold" id="summaryChildren">-</div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <!-- Price Breakdown -->
+                                <div class="price-breakdown">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span id="summaryNights">0 nights</span>
+                                        <span id="summarySubtotal">$0.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Service fee</span>
+                                        <span id="summaryServiceFee">$0.00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>Taxes</span>
+                                        <span id="summaryTaxes">$0.00</span>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between fw-bold fs-5">
+                                        <span>Total</span>
+                                        <span class="text-primary" id="summaryTotal">$0.00</span>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-shield-alt me-1"></i>
+                                        Your booking information is secure
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-hotel me-2"></i>Hotel Manager</h5>
+                    <p class="text-muted">Experience luxury and comfort in our premium rooms.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">&copy; 2024 Hotel Manager. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/booking.js"></script>
+</body>
+</html>

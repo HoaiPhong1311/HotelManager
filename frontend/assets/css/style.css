@@ -1,0 +1,306 @@
+/* Hotel Manager - Main Stylesheet */
+
+/* Global Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: linear-gradient(45deg, var(--primary-color), var(--info-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.shadow-custom {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.border-radius-custom {
+    border-radius: 0.5rem;
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Component Specific Styles */
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.card-custom {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: all 0.3s ease;
+}
+
+.card-custom:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Button Styles */
+.btn-custom {
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Form Styles */
+.form-control-custom {
+    border-radius: 0.5rem;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.form-control-custom:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+    
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Loading Spinner */
+.spinner-custom {
+    width: 2rem;
+    height: 2rem;
+    border: 0.25rem solid #f3f3f3;
+    border-top: 0.25rem solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Alert Styles */
+.alert-custom {
+    border: none;
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+}
+
+/* Footer Styles */
+footer {
+    margin-top: auto;
+}
+
+/* Page Specific Styles */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><polygon points="1000,100 1000,0 0,100"/></svg>') no-repeat bottom;
+    background-size: cover;
+}
+
+.room-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.room-card:hover {
+    transform: scale(1.02);
+}
+
+/* Dashboard Styles */
+.dashboard-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 1rem;
+}
+
+.stats-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+/* Admin Statistics Cards */
+.stats-card-total {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stats-card-active {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+}
+
+.stats-card-upcoming {
+    background: linear-gradient(135deg, #3a7bd5 0%, #00d2ff 100%);
+}
+
+.stats-card-completed {
+    background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+}
+
+/* Table Styles */
+.table-custom {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.table-custom th {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: 600;
+}
+
+.table-custom td {
+    border-color: #e9ecef;
+    padding: 1rem;
+}
+
+/* Modal Styles */
+.modal-custom .modal-content {
+    border-radius: 1rem;
+    border: none;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+.modal-custom .modal-header {
+    border-bottom: 2px solid #e9ecef;
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+    color: white;
+    border-radius: 1rem 1rem 0 0;
+}
+
+/* Utility Classes for Spacing */
+.mt-custom { margin-top: 3rem; }
+.mb-custom { margin-bottom: 3rem; }
+.py-custom { padding: 3rem 0; }
+
+/* Homepage Specific Styles */
+.navbar-scrolled {
+    background-color: rgba(13, 110, 253, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hover-primary:hover {
+    color: var(--primary-color) !important;
+    transition: color 0.3s ease;
+}
+
+.fa-10x {
+    font-size: 10em;
+}
+
+/* Room Card Enhancements */
+.room-card .card-img-top {
+    transition: transform 0.3s ease;
+}
+
+.room-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+/* Statistics Cards */
+.stats-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Search Form Enhancements */
+.form-control-custom:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Loading Animation */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.loading-pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Fix for password field eye icons */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-strong-password-auto-fill-button {
+    display: none !important;
+}
+
+/* Hide browser's default password visibility toggle */
+input[type="password"]::-webkit-textfield-decoration-container {
+    visibility: hidden;
+}
+
+/* Print Styles */
+@media print {
+    .navbar, .footer, .btn { display: none !important; }
+    body { font-size: 12pt; }
+}

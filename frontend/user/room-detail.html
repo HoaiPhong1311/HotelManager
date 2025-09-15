@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Details - Hotel Manager</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="../index.html">
+                <i class="fas fa-hotel me-2"></i>Hotel Manager
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">
+                            <i class="fas fa-home me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="rooms.html">
+                            <i class="fas fa-bed me-1"></i>Rooms
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" id="authNavItems">
+                    <!-- Dynamic content will be loaded here -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="bg-light py-3" style="margin-top: 76px;">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="../index.html" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="rooms.html" class="text-decoration-none">Rooms</a></li>
+                    <li class="breadcrumb-item active" aria-current="page" id="roomBreadcrumb">Room Details</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Loading State -->
+    <div id="loadingState" class="text-center py-5">
+        <div class="container">
+            <div class="spinner-custom mx-auto mb-3"></div>
+            <p class="text-muted">Loading room details...</p>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorState" class="text-center py-5" style="display: none;">
+        <div class="container">
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                <h4>Room Not Found</h4>
+                <p>The room you're looking for doesn't exist or has been removed.</p>
+                <a href="rooms.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-left me-1"></i>Back to Rooms
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent" style="display: none;">
+        <!-- Room Header -->
+        <section class="py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge bg-primary me-2 fs-6" id="roomTypeBadge">King</span>
+                            <div class="text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <h1 class="display-6 fw-bold mb-1" id="roomTitle">Luxury King Room</h1>
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-map-marker-alt me-1"></i>Premium Floor • City View
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <div class="text-primary">
+                            <h2 class="mb-0 fw-bold" id="roomPrice">$700.00</h2>
+                            <small class="text-muted">per night</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Gallery -->
+        <section class="pb-4">
+            <div class="container">
+                <div class="position-relative">
+                    <img id="mainRoomImage" 
+                         src="https://via.placeholder.com/800x500/0d6efd/ffffff?text=Hotel+Room" 
+                         alt="Room" 
+                         class="img-fluid rounded-3 w-100" 
+                         style="height: 400px; object-fit: cover; cursor: pointer;"
+                         onclick="openImageModal(this.src)">
+                    <button class="btn btn-dark btn-sm position-absolute top-0 end-0 m-3" onclick="openImageGallery()">
+                        <i class="fas fa-images me-1"></i>View Gallery
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Room Details & Booking -->
+        <section class="py-4">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Room Information -->
+                    <div class="col-lg-8">
+                        <!-- Description -->
+                        <div class="card card-custom mb-4">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <i class="fas fa-info-circle me-2 text-primary"></i>About This Room
+                                </h3>
+                                <p class="card-text" id="roomDescription">
+                                    Loading room description...
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Amenities -->
+                        <div class="card card-custom mb-4">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <i class="fas fa-star me-2 text-primary"></i>Amenities & Features
+                                </h3>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-wifi text-success me-2"></i>
+                                            <span>Free WiFi</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-snowflake text-info me-2"></i>
+                                            <span>Air Conditioning</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-tv text-primary me-2"></i>
+                                            <span>Smart TV</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-bath text-info me-2"></i>
+                                            <span>Private Bathroom</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-coffee text-warning me-2"></i>
+                                            <span>Coffee Maker</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-concierge-bell text-success me-2"></i>
+                                            <span>Room Service</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Room Policies -->
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <h3 class="card-title">
+                                    <i class="fas fa-clipboard-list me-2 text-primary"></i>Room Policies
+                                </h3>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-clock text-success me-2"></i>Check-in</h6>
+                                        <p class="text-muted mb-0">3:00 PM - 11:00 PM</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-clock text-danger me-2"></i>Check-out</h6>
+                                        <p class="text-muted mb-0">11:00 AM</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-ban-smoking text-warning me-2"></i>Smoking</h6>
+                                        <p class="text-muted mb-0">Non-smoking</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-paw text-info me-2"></i>Pets</h6>
+                                        <p class="text-muted mb-0">Not allowed</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Booking Card -->
+                    <div class="col-lg-4">
+                        <div class="card card-custom shadow-lg sticky-top" style="top: 100px;">
+                            <div class="card-body">
+                                <div class="text-center mb-4">
+                                    <h4 class="text-primary fw-bold mb-1" id="bookingPrice">$700.00</h4>
+                                    <small class="text-muted">per night</small>
+                                </div>
+
+                                <form id="bookingForm">
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-6">
+                                            <label for="bookingCheckIn" class="form-label fw-semibold">Check In</label>
+                                            <input type="date" class="form-control form-control-custom" id="bookingCheckIn" required>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="bookingCheckOut" class="form-label fw-semibold">Check Out</label>
+                                            <input type="date" class="form-control form-control-custom" id="bookingCheckOut" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-6">
+                                            <label for="bookingAdults" class="form-label fw-semibold">Adults</label>
+                                            <select class="form-select form-control-custom" id="bookingAdults">
+                                                <option value="1">1 Adult</option>
+                                                <option value="2" selected>2 Adults</option>
+                                                <option value="3">3 Adults</option>
+                                                <option value="4">4 Adults</option>
+                                                <option value="5">5 Adults</option>
+                                                <option value="6">6 Adults</option>
+                                                <option value="7">7 Adults</option>
+                                                <option value="8">8 Adults</option>
+                                                <option value="9">9 Adults</option>
+                                                <option value="10">10+ Adults</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="bookingChildren" class="form-label fw-semibold">Children</label>
+                                            <select class="form-select form-control-custom" id="bookingChildren">
+                                                <option value="0" selected>0 Children</option>
+                                                <option value="1">1 Child</option>
+                                                <option value="2">2 Children</option>
+                                                <option value="3">3 Children</option>
+                                                <option value="4">4 Children</option>
+                                                <option value="5">5 Children</option>
+                                                <option value="6">6+ Children</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Price Breakdown -->
+                                    <div class="border-top border-bottom py-3 mb-3" id="priceBreakdown" style="display: none;">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span id="nightsText">2 nights</span>
+                                            <span id="subtotalPrice">$1,400.00</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Service fee</span>
+                                            <span id="serviceFee">$70.00</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between fw-bold">
+                                            <span>Total</span>
+                                            <span id="totalPrice">$1,470.00</span>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-lg btn-custom w-100 mb-3" id="bookNowBtn">
+                                        <i class="fas fa-calendar-check me-2"></i>Book Now
+                                    </button>
+                                </form>
+
+                                <div class="text-center">
+                                    <small class="text-muted">
+                                        <i class="fas fa-shield-alt me-1"></i>Free cancellation within 24 hours
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Room Gallery</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <img id="modalImage" src="" alt="Room Image" class="img-fluid w-100">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-hotel me-2"></i>Hotel Manager</h5>
+                    <p class="text-muted">Experience luxury and comfort in our premium rooms.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">&copy; 2024 Hotel Manager. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/room-detail.js"></script>
+</body>
+</html>
